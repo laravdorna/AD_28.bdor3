@@ -78,19 +78,19 @@ public static Connection conexion = null;
         
         //abrir conexion
         getConexion();
-        int nFilas=3;
+       int columna =2;//el numero de columna que contiene el objeto empleado
         String consulta= "select id,emp, salario from empregadosbdor ";
         Statement stm = conexion.createStatement();
         ResultSet rs= stm.executeQuery(consulta);
 
         
-       for (int i = 0; i < nFilas; i++) {
-            rs.next();
+       while(rs.next()) {
+            
             int id = rs.getInt("id");
             int salario = rs.getInt("salario");
             rs.getObject(2);//posicion de la columna empieza a contar desde uno
             
-            Struct empleado = (java.sql.Struct) rs.getObject(2); //tipo extructurado porque es un objeto empleado
+            Struct empleado = (java.sql.Struct) rs.getObject(columna); //tipo extructurado porque es un objeto empleado
             
             //Se guarda en un array
             Object[] campos = empleado.getAttributes(); 
